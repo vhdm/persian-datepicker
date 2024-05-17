@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persian DatePicker</title>
+    <link rel="stylesheet" href="./persian-datepicker.css" />
+</head>
+
+<body>
+    <input id="jalali-date" type="text">
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="./persian-date.js"></script>
+<script src="./persian-datepicker.js"></script>
+<script>
+    $(document).ready(function () {
+        setTimeout(() => {
+            $('#jalali-date').persianDatepicker({
+                autoClose: true,
+                format: 'YYYY/MM/DD ساعت H:m:s',
+                todayButton: {
+                    enabled: true
+                },
+                calendarType: 'persian',
+                toolbox: {
+                    calendarSwitch: {
+                        enabled: false
+                    }
+                },
+                navigator: {
+                    scroll: {
+                        enabled: false
+                    }
+                },
+                minDate: new persianDate().valueOf(),
+                maxDate: new persianDate().add('month', 3).valueOf(),
+                timePicker: {
+                    enabled: true,
+                    meridiem: {
+                        enabled: false
+                    }
+                },
+                onSelect: function (unix, type) {
+                    Livewire.dispatch('setTimestamp', { timestamp: unix })
+                }
+            });
+        }, 1000);
+    });
+</script>
+
+</html>
+
+
